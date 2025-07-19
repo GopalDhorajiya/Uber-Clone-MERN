@@ -14,11 +14,11 @@ const Input = forwardRef(function Input(
   const inputId = useId();
 
   return (
-    <div className={`flex flex-col ${className}`}>
+    <div className={`flex flex-col w-full`}>
       {label && (
         <label
           htmlFor={inputId}
-          className={`mb-2 text-sm font-medium ${labelClassName || "text-gray-300"}`}
+          className={`mb-1 text-xs font-medium ${labelClassName || "text-gray-700"}`}
         >
           {label}
         </label>
@@ -27,13 +27,14 @@ const Input = forwardRef(function Input(
         id={inputId}
         type={type}
         placeholder={placeholder}
+        // The classes passed in the `className` prop below will override these defaults
         className={`
-          px-4 py-3 rounded-lg border 
-          bg-gray-700 text-gray-100 border-gray-600 
-          focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent
+          px-3 py-2.5 rounded-md border 
+          bg-gray-100 text-black border-gray-200
+          focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent
           transition duration-200
           placeholder-gray-500
-          ${!label ? className : ""}
+          ${className}
         `}
         ref={ref}
         {...props}

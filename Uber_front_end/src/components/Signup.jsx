@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { Input, Button } from "./index";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -14,6 +15,7 @@ function Signup() {
 
   const password = watch("password");
 
+  const [error, setError] = useState("");
   const signup = async (data) => {
     try {
       // Proceed with signup logic (e.g. API call)
@@ -25,143 +27,62 @@ function Signup() {
   };
 
   return (
-    <div>
-      <div className="min-h-screen bg-gray-900 p-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700">
-            <div className="md:flex">
-              {/* Left side - Welcome section (dark) */}
-              <div className="md:w-1/2 bg-gradient-to-br from-gray-800 to-gray-900 p-12 text-gray-100 border-r border-gray-700">
-                <h2 className="text-3xl font-bold mb-4">Join Us Today</h2>
-                <p className="mb-6 text-gray-300">
-                  Create your account to unlock all features and start your
-                  journey with us.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-center text-gray-200">
-                    <svg
-                      className="h-5 w-5 mr-2 text-indigo-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span>Exclusive content</span>
-                  </li>
-                  <li className="flex items-center text-gray-200">
-                    <svg
-                      className="h-5 w-5 mr-2 text-indigo-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span>Personalized dashboard</span>
-                  </li>
-                  <li className="flex items-center text-gray-200">
-                    <svg
-                      className="h-5 w-5 mr-2 text-indigo-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span>24/7 customer support</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Right side - Form (dark) */}
-              <div className="md:w-1/2 p-12 bg-gray-800">
-                <h1 className="text-3xl font-bold text-gray-100 mb-2">
-                  Sign Up
+    <div className="flex items-center justify-center min-h-screen bg-white p-4 font-sans">
+            <div className="w-full max-w-md mx-auto">
+                
+                <h1 className="text-3xl font-bold text-black mb-8">
+                    Create your account
                 </h1>
-                <p className="text-gray-400 mb-8">
-                  Create your account in just a few steps
-                </p>
 
-                <form onSubmit={handleSubmit(signup)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Input
-                      label="First Name"
-                      type="text"
-                      placeholder="John"
-                      className="w-full bg-gray-700 text-gray-100 border-gray-600 focus:border-indigo-500 focus:ring-indigo-500"
-                      labelClassName="text-gray-300"
-                      {...register("firstName", { required: true })}
-                    />
-                    <Input
-                      label="Last Name"
-                      type="text"
-                      placeholder="Doe"
-                      className="w-full bg-gray-700 text-gray-100 border-gray-600 focus:border-indigo-500 focus:ring-indigo-500"
-                      labelClassName="text-gray-300"
-                      {...register("lastName", { required: true })}
-                    />
-                  </div>
+                {error && <p className="bg-red-100 text-red-700 border border-red-300 p-3 rounded-md text-center mb-6">{error}</p>}
 
-                  <Input
-                    label="Email Address"
-                    type="email"
-                    placeholder="your@email.com"
-                    className="w-full bg-gray-700 text-gray-100 border-gray-600 focus:border-indigo-500 focus:ring-indigo-500"
-                    labelClassName="text-gray-300"
-                    {...register("email", {
-                      required: true,
-                      validate: {
-                        matchPatern: (value) =>
-                          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-                            value
-                          ) || "Email address must be a valid address",
-                      },
-                    })}
-                  />
-                  <Input
-                    label="Mobile Number"
-                    type="tel"
-                    placeholder="e.g. 9876543210"
-                    className="w-full bg-gray-700 text-gray-100 border-gray-600 focus:border-indigo-500 focus:ring-indigo-500"
-                    labelClassName="text-gray-300"
-                    {...register("mobile", {
-                      required: "Mobile number is required",
-                      pattern: {
-                        value: /^[6-9]\d{9}$/, // Basic Indian number pattern (change if needed)
-                        message: "Enter a valid 10-digit mobile number",
-                      },
-                    })}
-                  />
-                    {errors.mobile && (
-                      <p className="text-red-500 text-sm">
-                        {errors.mobile.message}
-                        </p>
-                    )}
-                  <Input
-                    label="Password"
-                    type="password"
-                    placeholder="••••••••"
-                    className="w-full bg-gray-700 text-gray-100 border-gray-600 focus:border-indigo-500 focus:ring-indigo-500"
-                    labelClassName="text-gray-300"
-                    {...register("password", {
-                      required: "Password is required",
-                      minLength: {
-                        value: 6,
-                        message: "Password must be at least 6 characters",
-                      },
-                    })}
-                  />
-                  {errors.password && (
+                <form onSubmit={handleSubmit(signup)} className="space-y-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <Input
+                            label="First Name"
+                            {...register("firstName", { required: "First name is required" })}
+                        />
+                        <Input
+                            label="Last Name"
+                            {...register("lastName", { required: "Last name is required" })}
+                        />
+                    </div>
+
+                    <Input
+                        label="Email Address"
+                        type="email"
+                        placeholder="eg. abc@xyz.com"
+                        {...register("email", {
+                            required: "Email is required",
+                            pattern: {
+                                value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                                message: "Please enter a valid email address",
+                            },
+                        })}
+                    />
+
+                    <Input
+                        label="Phone Number"
+                        type="tel"
+                        {...register("phone", {
+                            required: "Phone number is required",
+                            pattern: {
+                                value: /^\d{10}$/,
+                                message: "Phone number must be 10 digits",
+                            },
+                        })}
+                    />
+
+                    <Input
+                        label="Password"
+                        type="password"
+                        placeholder="••••••••"
+                        {...register("password", {
+                            required: "Password is required",
+                            minLength: { value: 6, message: "Password must be at least 6 characters" },
+                        })}
+                    />
+                    {errors.password && (
                     <p className="text-black-500 text-sm">
                       {errors.password.message}
                     </p>
@@ -171,8 +92,6 @@ function Signup() {
                     label="Confirm Password"
                     type="password"
                     placeholder="••••••••"
-                    className="w-full bg-gray-700 text-gray-100 border-gray-600 focus:border-indigo-500 focus:ring-indigo-500"
-                    labelClassName="text-gray-300"
                     {...register("confirmPassword", {
                       required: "Confirm Password is required",
                       validate: (value) =>
@@ -185,52 +104,43 @@ function Signup() {
                     </p>
                   )}
 
-                  <div className="flex items-center">
-                    <input
-                      id="terms"
-                      type="checkbox"
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-600 rounded bg-gray-700"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="ml-2 block text-sm text-gray-300"
-                    >
-                      I agree to the{" "}
-                      <a href="#" className="text-indigo-400 hover:underline">
-                        Terms
-                      </a>{" "}
-                      and{" "}
-                      <a href="#" className="text-indigo-400 hover:underline">
-                        Privacy Policy
-                      </a>
-                    </label>
-                  </div>
 
-                  <Button
-                    type="submit"
-                    bgColor="bg-indigo-600"
-                    textColor="text-white"
-                    className="w-full hover:bg-indigo-700 transition duration-200"
-                  >
-                    Create Account
-                  </Button>
 
-                  <p className="text-center text-sm text-gray-400">
-                    Already have an account?{" "}
-                    <Link
-                      to="/login"
-                      className="text-indigo-400 hover:underline"
-                    >
-                      Sign in
-                    </Link>
-                  </p>
+                    <div className="flex items-start pt-2">
+                        <input
+                            id="terms"
+                            type="checkbox"
+                            className="h-4 w-4 mt-0.5 text-black focus:ring-black border-gray-300 rounded"
+                            {...register("terms", { required: "You must accept the terms" })}
+                        />
+                        <label htmlFor="terms" className="ml-3 block text-sm text-gray-600">
+                            I agree to the{" "}
+                            <Link to="/terms" className="text-black hover:underline font-medium">
+                                Terms and Privacy Policy
+                            </Link>
+                        </label>
+                    </div>
+
+                    <div className="pt-4">
+                        <Button
+                            type="submit"
+                            bgColor="bg-black"
+                            textColor="text-white"
+                            className="hover:bg-gray-800 transition-colors duration-200"
+                        >
+                            Create Account
+                        </Button>
+                    </div>
+
+                    <p className="text-center text-sm text-gray-600 pt-4">
+                        Already have an account?{" "}
+                        <Link to="/login" className="font-medium text-black hover:underline">
+                            Sign In
+                        </Link>
+                    </p>
                 </form>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
   );
 }
 
