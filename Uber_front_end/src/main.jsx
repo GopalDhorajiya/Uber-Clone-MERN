@@ -5,7 +5,8 @@ import './index.css'
 import App from './App.jsx'
 import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
-
+import GetRide from './components/Getride.jsx'
+import Ride from './components/Ride.jsx'
 
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
         path: "/signup",
         element : <Signup />
       },
+      {
+        path: "/getride",
+        element: <Ride />,
+      }
     ],
   },
 ]);

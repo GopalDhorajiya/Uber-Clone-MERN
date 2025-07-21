@@ -27,6 +27,7 @@ const Input = forwardRef(function Input(
         id={inputId}
         type={type}
         placeholder={placeholder}
+        
         // The classes passed in the `className` prop below will override these defaults
         className={`
           px-3 py-2.5 rounded-md border 
