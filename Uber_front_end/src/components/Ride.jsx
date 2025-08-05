@@ -9,7 +9,7 @@ function Ride() {
     useEffect(() => {
         console.log("Final Location:", finalfromLocation);
     }, [finalfromLocation]);
-
+    
     useEffect(() => {
         console.log("Final To Location:", finaltoLocation);
     }, [finaltoLocation]);

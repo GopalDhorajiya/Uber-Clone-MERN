@@ -39,7 +39,7 @@ function GetRide(
   return (
     <div class="max-w-sm p-6 bg-white rounded-xl shadow-md space-y-4">
       <Input
-        label="Pickup Location"
+        // label="Pickup Location"
         type="text"
         placeholder="Enter your pickup location"
         className="w-full"
