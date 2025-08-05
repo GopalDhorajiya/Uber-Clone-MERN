@@ -2,8 +2,7 @@ import User from "../schema/user.js";
 
 export const createUser = async (userData) => {
   try {
-    const user = new User(userData);
-    await user.save();
+    const user = await User.create(userData);
     return user;
   } catch (error) {
     throw new Error(`Error creating user: ${error.message}`);
