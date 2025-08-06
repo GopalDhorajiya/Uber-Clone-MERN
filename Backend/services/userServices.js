@@ -1,7 +1,8 @@
 import { getUsers as getUsersFromRepository } from "../repository/userRepository.js";
 import { createUser as createUserInRepository } from "../repository/userRepository.js";
 import { findUserByEmail as findUserByEmailRepository } from "../repository/userRepository.js";
-import User from "../schema/user.js";
+import { generateToken } from "../utils/jwtutils.js";
+
 
 export const getUsers = async () =>{
     const users = await getUsersFromRepository();
@@ -43,7 +44,9 @@ export const loginUser = async (userData) =>
             status : 400 
         }
     }
+    const token = generateToken(user);
     return {
+        token,
         user:
         {
             id : user._id,

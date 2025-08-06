@@ -32,13 +32,17 @@ export const loginUser = async(req,res)=>
 {
   try {
     const userData = req.body;
-    const user = await loginUserServices(userData);
+    const {token , user} = await loginUserServices({
+      name : userData.name,
+      email : userData.email,
+      password : userData.password,
+    });
     if(!user)
     {
       errorResponse(res);
     }
     console.log(user);
-    successResponse(res,StatusCodes.ACCEPTED,user,"Sucssefully login");
+    successResponse(res,StatusCodes.ACCEPTED,{token,user},"Sucssefully login");
   } catch (error) {
     errorResponse(res,error);
   }
